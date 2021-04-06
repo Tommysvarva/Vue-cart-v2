@@ -50,6 +50,12 @@ export default {
       }
       .buy-menu__buy-now{
           float: right;
+          button{
+              &:hover{
+                  background-color:  rgb(140, 165, 51);
+                  cursor: pointer; 
+                        }
+          }
       }
   }
 }

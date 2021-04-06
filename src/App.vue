@@ -1,14 +1,14 @@
 <template>
   <nav>
     <div class="navigation__logo">TShop</div>
-    <div>Handlekruv({{ count }})</div>
+    <div @click="showCart = true" class="navigation__cart"> Handlekruv({{ count }})</div>
   </nav>
   <div class="container">
     <div class="container__products slide-left">
       <h1>Produkter</h1>
       <ProductList />
     </div>
-    <div class="container__cart">
+    <div class="container__cart" v-if="showCart">
       <ShoppingCart />
     </div>
   </div>
@@ -18,7 +18,7 @@
 
 import ProductList from '../src/components/ProductList'
 import ShoppingCart from '../src/components/ShoppingCart'
-import {computed} from 'vue'
+import {computed, ref} from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'App',
@@ -26,10 +26,11 @@ export default {
   setup () {
     const store = useStore();
     const products = computed(() => store.getters['cart/cartProducts'])
-    
+    const showCart = ref(false)
     return {
       count: computed(() => store.state.cart.items.length),
-      products
+      products, 
+      showCart
     }
   }
 
@@ -43,7 +44,7 @@ export default {
  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #20252c;
   min-height: 100vh;
   background-color: #F3F5FA;
 }
@@ -61,6 +62,12 @@ nav {
     }
     .navigation__user {
       font-weight: bold;
+    }
+    .navigation__cart{
+      &:hover{
+        cursor: pointer;
+        color: rgb(140, 165, 51);
+      }
     }
   }
   .container{
@@ -81,6 +88,11 @@ nav {
       background: whitesmoke;
       height: 100%;
       float:right;
+      height: 50%;
+      margin-top: 24px;
+      &.visable{
+        display: block;
+      }
     }
   }
 </style>

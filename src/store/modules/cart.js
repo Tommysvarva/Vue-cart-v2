@@ -13,8 +13,9 @@ const getters = {
     return state.items.map(({ id, quantity }) => {
       const product = rootState.products.all.find(product => product.id === id)
       return {
-        title: product.title,
+        name: product.name,
         price: product.price,
+        description: product.description,
         quantity
       }
     })
