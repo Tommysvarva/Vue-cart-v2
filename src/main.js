@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import store from './store'
+import shop from '../src/API/shop'
 
-createApp(App).use(store).mount('#app')
+createApp(App).use(shop).mount('#app')

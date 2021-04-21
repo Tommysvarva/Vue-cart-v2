@@ -6,16 +6,15 @@
           <div class="buy-menu__price"> {{ price }},- </div>
           <div class="buy-menu__buy-now">
           <button
-           @click="addProductToCart(product)">
+           @click="addToCart(product)">
            Kjøp</button></div>
       </div>
   </article>
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
 
+import {useShop} from '../API/shop'
 export default {
     name: 'ProductItem',
     props: {
@@ -26,14 +25,11 @@ export default {
         product: Object
     },
     setup() {
-        const store = useStore()
-        const products = computed(() => store.state.products.all)
-        const addProductToCart = (product) => store.dispatch('cart/addProductToCart', product)
-
-        store.dispatch('products/getAllProducts')
+        const {products, cart, addToCart} = useShop();
         return{
             products,
-            addProductToCart
+            cart,
+            addToCart
         }
     }
 }

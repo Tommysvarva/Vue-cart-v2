@@ -1,8 +1,9 @@
 <template>
 	<div class="shopping-cart">
 		<h2>Handlekurv</h2>
+    <p>{{cart}}</p>
 		<ul>
-			<li v-for="product in products" :key="product.id">
+			<li v-for="product in cart" :key="product.id">
 				<div class="shopping-cart__header">
 					<p class="shopping-cart__header__product-name">{{ product.name }}</p>
 					<p class="shopping-cart__header__product-price">{{ product.price }} kr</p>
@@ -24,18 +25,15 @@
 </template>
 
 <script>
-import { useStore } from "vuex"
-import { computed } from "vue"
+import {useShop} from '../API/shop'
 export default {
 	name: "ShoppingCart",
 	setup() {
-		const store = useStore()
-		const products = computed(() => store.getters["cart/cartProducts"])
-    const totalPrice = computed(()=> store.getters["cart/cartTotalPrice"])
+
+     const {cart} = useShop(); 
+
 		return {
-			store,
-			products,
-      totalPrice
+      cart
 		}
 	}
 }

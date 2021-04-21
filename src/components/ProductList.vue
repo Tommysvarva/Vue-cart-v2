@@ -12,18 +12,14 @@
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
+import {useShop} from '../API/shop'
 import ProductItem from '../components/ProductItem'
-
 export default {
   setup(){
-      const store = useStore()
-      const products = computed( () => store.state.products.all)
-      store.dispatch('products/getAllProducts')
+      const {products} = useShop();
       return{
-          products,
-          ProductItem,
+        products,
+        ProductItem
       }
   }
 }

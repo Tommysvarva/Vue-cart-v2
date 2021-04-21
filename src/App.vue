@@ -1,14 +1,14 @@
 <template>
   <nav>
     <div class="navigation__logo">TShop</div>
-    <div @click="showCart = true" class="navigation__cart"> Handlekruv({{ count }})</div>
+    <div class="navigation__cart"> Handlekruv({{ count }})</div>
   </nav>
   <div class="container">
     <div class="container__products slide-left">
       <h1>Produkter</h1>
       <ProductList />
     </div>
-    <div class="container__cart" v-if="showCart">
+    <div class="container__cart" >
       <ShoppingCart />
     </div>
   </div>
@@ -18,24 +18,17 @@
 
 import ProductList from '../src/components/ProductList'
 import ShoppingCart from '../src/components/ShoppingCart'
-import {computed, ref} from 'vue'
-import { useStore } from 'vuex'
+import {useShop} from '../src/API/shop'
 export default {
   name: 'App',
   components: { ProductList, ShoppingCart},
   setup () {
-    const store = useStore();
-    const products = computed(() => store.getters['cart/cartProducts'])
-    const showCart = ref(false)
+    const {products,cart} = useShop()
     return {
-      count: computed(() => store.state.cart.items.length),
-      products, 
-      showCart
+      products,
+      cart
     }
   }
-
-  
-
 }
 </script>
 
@@ -90,9 +83,7 @@ nav {
       float:right;
       height: 50%;
       margin-top: 24px;
-      &.visable{
-        display: block;
-      }
+      display: block;
     }
   }
 </style>
